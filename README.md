@@ -2,8 +2,10 @@
 
 ********************************************
 Changes from original code:
-HS CAN harcoded to = can0
-LS CAN harcoded to = can1
+
+HS CAN hardcoded to = can0
+
+LS CAN hardcoded to = can1
 ********************************************
 
 Volvo 9S12(X) Secondary Boot Loader Uploader Tool
