@@ -1,4 +1,11 @@
 # VolvoSBLUploaderTool
+
+********************************************
+Changes from original code:
+HS CAN harcoded to = can0
+LS CAN harcoded to = can1
+********************************************
+
 Volvo 9S12(X) Secondary Boot Loader Uploader Tool
 
 This software was developed for testing and editing Volvo's car ECU firmware. It was mainly made for P1 Platform (S40, V50, C30, S/C70).
@@ -49,15 +56,11 @@ Run the program:
 Easy use hint:
 ```
 ECU SBL Uploader Tool by Alain WEISZ
+Opening High-Speed CAN device: can0
+Opening Low-Speed CAN device: can1
 
-Enter CAN device name to use for HS (ex: can0,can1...), note that the device must be already up and set to the correct baud rate : can0
-Opening devices : can0
-
-Enter CAN device name to use for LS (ex: can0,can1...), note that the device must be already up and set to the correct baud rate : can1
-Opening devices : can1
-
-Is the ECU on HS(0) or LS(1) CAN Bus ? : 0
-Using High Speed CAN
+Is the ECU on HS(0) or LS(1) CAN Bus? : 1
+Using Low-Speed CAN
 
 Enter ECU ID (ex: 50,40... hexa value expected): 50
 ECU id used : 50
