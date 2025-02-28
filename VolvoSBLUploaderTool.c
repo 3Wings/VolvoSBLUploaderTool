@@ -387,7 +387,7 @@ void GetSBLInfoFromHwNo(char *HardwareModel, int ECU_id)
       printf("\r\nAnalyzing model %s, looking for %s", hw_no, HardwareModel);
       if ((strcmp(hw_no,HardwareModel) == 0) && (strtol(json_string_value(ecu_id),NULL,16) == ECU_id))
         {
-          // Trouv������
+          // Trouvï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
           printf(" Found\r\n");
           
           json_t *startAddr       = json_object_get(value, "startAddr");
@@ -548,7 +548,7 @@ int EraseFlashSector (int ECU_id, char Type, long int addrstart, int s, struct s
     }
    
   if (debug) printf("Done\r\n");
-  return frame.data[2]; // Resultat de l'op������������������ration
+  return frame.data[2]; // Resultat de l'opï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ration
 }
 
 char ProgramMemoryWord (int ECU_id, char Type,int addrStart, int data, int s, struct sockaddr *addr, struct can_frame frame)
@@ -830,7 +830,7 @@ int UploadSBLData(const char *filename, int useCheckSum, int ECU_id, int s, stru
                 frame.data[0] = ECU_id;
                 frame.data[1] = 0xAE;
                 cnt=2;
-                firstTX=0; // on a d������������������ja transmis, on clear le flag car checksum ������������������ calculer
+                firstTX=0; // on a dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ja transmis, on clear le flag car checksum ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ calculer
                 tx_counter += totcnt;
               }
           }
@@ -1678,46 +1678,42 @@ int SBLMenu (int ECU_id, int s, struct sockaddr *addr, struct can_frame frame)
 */
 int main(int argc, char **argv)
 {
-	int s,sls, shs; 
-	struct sockaddr_can addr;
-  struct sockaddr_can addrls;
-  struct sockaddr_can addrhs;
-	//struct ifreq ifr;
-	struct can_frame frame;
-  char PIN[6]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}; 
-  int ECU_id=0x50;
- 
-  //long int RunAddress = 0x1400;
-  long int RunAddress = 0x3000;
+    int s, sls, shs;
+    struct sockaddr_can addr;
+    struct sockaddr_can addrls;
+    struct sockaddr_can addrhs;
+    struct can_frame frame;
+    char PIN[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    int ECU_id = 0x50;
+    long int RunAddress = 0x3000;
 
-	printf("\r\n\r\nECU SBL Uploader Tool by Alain WEISZ\r\n");
+    printf("\r\n\r\nECU SBL Uploader Tool by Alain WEISZ\r\n");
 
-  printf("\r\nEnter CAN device name to use for HS (ex: can0,can1...), note that the device must be already up and set to the correct baud rate : ");
-  char candev[5];
-  scanf("%s", candev);
-  printf("Opening device : %s\r\n",candev);
-  shs = setupCANSock(candev, &addrhs);
-  
-  printf("\r\nEnter CAN device name to use for LS (ex: can0,can1...), note that the device must be already up and set to the correct baud rate : ");
-  char candevls[5];
-  scanf("%s", candevls);
-  printf("Opening device : %s\r\n",candevls);
-  sls = setupCANSock(candevls, &addrls);
-  
-  printf("\r\nIs the ECU on HS(0) or LS(1) CAN Bus ? : ");
-  int choicedev;
-  scanf("%d", &choicedev);
-  if (choicedev == 0)
-    {
-      printf("Using High Speed CAN\r\n");
-      addr = addrhs;
-      s=shs;
+    // Hardcoded CAN devices
+    char candev[] = "can0";  // High-Speed CAN
+    char candevls[] = "can1"; // Low-Speed CAN
+
+    printf("Opening High-Speed CAN device: %s\r\n", candev);
+    shs = setupCANSock(candev, &addrhs);
+
+    printf("Opening Low-Speed CAN device: %s\r\n", candevls);
+    sls = setupCANSock(candevls, &addrls);
+
+    printf("\r\nIs the ECU on HS(0) or LS(1) CAN Bus? : ");
+    int choicedev;
+    if (scanf("%d", &choicedev) != 1) {
+        fprintf(stderr, "Invalid input. Expected a number.\n");
+        return -1;
     }
-  else
-    {
-      printf("Using Low Speed CAN\r\n");
-      addr = addrls;
-      s=sls;
+
+    if (choicedev == 0) {
+        printf("Using High-Speed CAN\r\n");
+        addr = addrhs;
+        s = shs;
+    } else {
+        printf("Using Low-Speed CAN\r\n");
+        addr = addrls;
+        s = sls;
     }
   
   printf("\r\nEnter ECU ID (ex: 50,40... hexa value expected): ");
